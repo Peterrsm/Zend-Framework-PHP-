@@ -1,0 +1,30 @@
+<button class="btn btn-Esk" onclick="goBack()" style="float:right; margin-top-20px;margin-right:20px;">Voltar</button>
+
+<h4>Requisição</h4>
+
+<hr>
+
+<div class="col-6">
+  <form method="post" action="/requisicao/index/editabanco">
+    <div class="form-group">
+      <label for="exampleInputText">Assunto</label>
+      <input type="text" id="nome" name="assunto" class="form-control" id="exampleInputText" value="<?php echo $assunto ?>" >
+    </div>
+    <div class="form-group">
+      <label for="exampleInputText">Descrição da requisição</label>
+      <textarea class="form-control" id="corpo" name="corpo" rows="5"><?php echo $corpo ?></textarea>
+      <input type="hidden" name="id" class="form-control" value="<?php echo $id ?>">
+    </div>
+    <button type="submit" class="btn btn-Esk" id="exampleInputText" >Salvar</button>
+  </form>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function close_window() {
+        close();
+    }
+</script>

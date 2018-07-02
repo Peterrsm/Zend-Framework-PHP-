@@ -1,0 +1,133 @@
+
+
+<?php
+    
+    if($setor == "qualidade" || $setor == "admin" ){
+        echo '
+                <form  method="post" action="/requisicao/index/removeemmassa" style="float:left;margin-right:1%;"> 
+                    <input type="hidden" id="arrais" name="arrais" value="">
+                    <button type:"submit" class="btn btn-Esk" id="removetodos" href="#">Remover selecionado(s)</button>
+                </form>
+
+                <form  method="post" action="/requisicao/index/aprovaemmassa" style="float:left;margin-right:1%;"> 
+                    <input type="hidden" id="arrais2" name="arrais2" value="">
+                    <button class="btn btn-Esk" id="aprovatodos" href="#">Aprovar selecionado(s)</button>
+                </form>
+            ';        
+    }
+    
+?>
+
+
+<a class="btn btn-Esk" href="/requisicao/index/listaaprovados" id="aprovar" style="float:right;margin-right:1%;">Listar Aprovados</a>
+
+<?php
+    if($setor == "qualidade" || $setor == "admin" ){
+        echo '
+        <a class="btn btn-Esk" href="/requisicao/index/adiciona" style="float:right;margin-right:1%;">Adicionar</a>
+        ';
+    }
+?>
+
+
+<br/>
+<br/>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col">Assunto</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Usuário</th>
+      <th scope="col">Data</th>
+      <th scope="col">Editar</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+        $row = 0;
+        foreach($result as $value){            
+            if($value->getFinaliza() == 0){     
+                $row++;
+                echo ' 
+                <tr>
+                <th scope="row">' . $row . '</th>
+                <td>';
+                if($setor == "qualidade" || $setor == "admin" ){
+                    echo '
+                        <input class="check" type="checkbox"  id="'.$value->getId().'" name="check" value="no" />
+                    '; 
+                }
+                echo '</td>
+                <td>' . $value->getAssunto() . '</td>
+                <td>' . $value->getCorpo() . '</td>
+                <td>' . $value->getUsuario() . '</td>
+                <td>' . $value->getData()->format('d/m/Y') . '</td>
+                <td>';
+                if($usuario == (String)$value->getUsuario()){
+                    echo '
+                            <form method="post" action="/requisicao/index/edita">
+                                <input type="hidden" name="id" value=" ' . $value->getId() . '" >
+                            
+                                <button type="submit" class="btn btn-primary">Editar</button>
+                            </form>
+                        ';
+                }
+                echo ' 
+                </td>   
+            </tr>
+                ';
+            }
+        }
+    ?>    
+  </tbody>
+</table>
+
+<script>
+
+$(document).ready(function(){
+    var arrais = '';
+    $('.check').click(function(){
+        var id = $(this).attr('id');
+        if($('#'+ id).is(':checked')){
+            arrais = arrais+id+',';
+            console.log(arrais);
+            $('#remove'+id).show();
+            $('#aprova'+id).show();
+        }else{
+            $('#remove'+id).hide();
+            $('#aprova'+id).hide();
+            arrais = arrais.replace(id+',', '');
+        }    
+    }); 
+    
+    $("#removetodos").click(function(e){
+       if(arrais != ''){
+           /* stopEvent(e); */
+           $('#arrais').val('['+arrais+']');
+       }else{
+           alert('É preciso selecionar ao menos um registro.');
+           e.preventDefault(); 
+       }
+
+    }); 
+    
+    
+    $("#aprovatodos").click(function(e){
+       if(arrais != ''){
+           $('#arrais2').val('['+arrais+']');
+       }else{
+           alert('É preciso selecionar ao menos um registro.');
+           e.preventDefault(); 
+       }
+    }); 
+
+})
+
+    
+    
+    
+</script>

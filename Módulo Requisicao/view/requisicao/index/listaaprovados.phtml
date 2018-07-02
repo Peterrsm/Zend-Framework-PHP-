@@ -1,0 +1,46 @@
+<button class="btn btn-Esk" onclick="goBack()" style="float:right;margin-top-20px; margin-right:25px;">Voltar</button>
+
+<br/>
+<br/>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Assunto</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Usuário</th>
+      <th scope="col">Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+        $row = 0;
+        foreach($result as $value){
+            if($value->getFinaliza() != 0){     
+                $row++;
+                echo ' 
+                <tr>
+                <th scope="row">' . $row . '</th>
+                <td>' . $value->getAssunto() . '</td>
+                <td>' . $value->getCorpo() . '</td>
+                <td>' . $value->getUsuario() . '</td>
+                <td>' . $value->getData()->format('d/m/Y') . '</td>
+            </tr>
+                ';
+            }
+        }
+    ?>    
+  </tbody>
+</table>
+
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function close_window() {
+        close();
+    }
+</script>

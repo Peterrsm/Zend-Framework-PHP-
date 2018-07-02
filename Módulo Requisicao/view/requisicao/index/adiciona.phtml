@@ -1,0 +1,43 @@
+
+
+<button class="btn btn-Esk" onclick="goBack()" style="float:right; margin-top-20px;margin-right:20px;">Voltar</button>
+
+<h4>Nova Requisição</h4>
+
+<hr>
+
+
+<div class="col-6">
+
+  <br/>
+  <br/>
+
+  <form method="post" action="/requisicao/index/adiciona">
+    <div class="form-group">
+      <label for="exampleInputText">Assunto</label>
+      <input type="text" id="nome" name="assunto" class="form-control" id="exampleInputText" required>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputText">Descrição da requisição</label>
+      <textarea class="form-control" id="corpo" name="corpo" rows="5" required></textarea>
+    </div>    
+    
+
+    <br/>
+    
+    <button type="submit" class="btn btn-Esk" id="exampleInputText" >Enviar</button>
+  </form>
+</div>
+
+
+
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function close_window() {
+        close();
+    }
+</script>
